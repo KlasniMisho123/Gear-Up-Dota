@@ -53,6 +53,37 @@ app.post('/gear-up-dota/signup', async(req, res) => {
     }    
 });
 
+app.post("/gear-up-dota/login", async (req, res) => {
+    const { loginEmail, loginPassword } = req.body;
+
+    function verifyUser(email, password) {
+        const queryWithEmail = "SELECT * FROM gupusers WHERE email = $1 AND password = $2";
+        db.query(queryWithEmail, [email, password], (err, result) => {
+            if (err) {
+                console.error("Error querying the database:", err);
+                return;
+            }
+            if (result.rows.length > 0) {
+                console.log("Result: ", result.rows);
+            } else {
+                console.log("Wrong Email or Password.");
+                // add error message on wrong login
+            }
+        });
+    }
+
+    try {
+        console.log(`EMAIL: ${loginEmail}, PASSWORD: ${loginPassword}`);
+
+        res.status(200).json();
+        verifyUser(loginEmail, loginPassword);
+        
+    } catch (err) {
+        console.log("Retrieve Error:", err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });

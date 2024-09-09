@@ -1,1 +1,5 @@
 1. bad request error on dublicate emails.
+
+2. login handle.
+
+3. add error message on wrong login !!
