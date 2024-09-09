@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import pg from "pg";
+import dotenv from 'dotenv';
 
 const app = express();
 const port = 5000;
@@ -10,6 +11,8 @@ const corsOptions = {
     origin: 'http://localhost:5173',
     optionsSuccessStatus: 200
 };
+
+dotenv.config();
 
 const db = new pg.Client({
     user: process.env.DB_USER,
@@ -37,9 +40,17 @@ app.post('/gear-up-dota/signup', async(req, res) => {
         res.status(200).json({ message: 'User registered successfully' });
 
     } catch (err) {
-        console.error('Database Error:', err);  
-        res.status(500).json({ message: 'REGISTRATION ERROR' });  
-    }
+        if (err.code === '23505') { // Duplicate email handle
+            console.error('Registration Error: Duplicate email');
+            res.status(400).json({
+                message: 'Email already exists. Please use a different email.',
+                errorType: "Duplicate email"
+            });
+        } else {
+            console.error('Database Error:', err);
+            res.status(500).json({ message: 'REGISTRATION ERROR' });
+        }
+    }    
 });
 
 app.listen(port, () => {
