@@ -65,17 +65,23 @@ app.post("/gear-up-dota/login", async (req, res) => {
             }
             if (result.rows.length > 0) {
                 console.log("Result: ", result.rows);
+                res.status(200).json({
+                    message: "Succesfully Loged in"
+                    
+                });
+
             } else {
                 console.log("Wrong Email or Password.");
-                // add error message on wrong login
+                res.status(400).json({
+                    message: "Wrong Email or Password.",
+                    errorType: "Invalid user"
+                });
             }
         });
     }
 
     try {
         console.log(`EMAIL: ${loginEmail}, PASSWORD: ${loginPassword}`);
-
-        res.status(200).json();
         verifyUser(loginEmail, loginPassword);
         
     } catch (err) {
