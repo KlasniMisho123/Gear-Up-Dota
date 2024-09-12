@@ -1,1 +1,7 @@
 2. during wrong login getting bad request error instead of handle it.
+
+3. git push errors. (client side)\
+
+4. HomePage Design
+
+5. Navbar
