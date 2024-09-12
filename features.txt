@@ -4,4 +4,4 @@
 
 4. HomePage Design
 
-5. Navbar
+5. Navbar color/transparent
