@@ -3,3 +3,6 @@
 1// https://api.opendota.com/api/players/898735244 - player profile. 
 
 https://api.opendota.com/api/players/898735244/recentMatches  - recent matches 
+
+
+https://developer.valvesoftware.com/wiki/Steam_Web_API - valve web developer documents. ??

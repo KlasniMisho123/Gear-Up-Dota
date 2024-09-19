@@ -2,6 +2,4 @@
 
 3. git push errors. (client side)\
 
-4. HomePage Design
-
-5. Navbar color/transparent
+6. Should transfer GridAddCard to be multi usefull component.
