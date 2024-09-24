@@ -28,6 +28,19 @@ app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", async (req, res) => {
+    try {
+        const result = await db.query("SELECT COUNT(*) FROM public.gupusers");
+        const userCount = result.rows[0].count;
+        res.send(`${userCount}`);
+    } catch (err) {
+        console.log("Connection error: ", err);
+        res.status(500).send("Error loading user count");
+    }
+});
+
+
+
 app.post('/gear-up-dota/signup', async(req, res) => {
     const { nickname, email, password } = req.body;
     try {

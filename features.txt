@@ -2,4 +2,14 @@
 
 3. git push errors. (client side)\
 
-6. Should transfer GridAddCard to be multi usefull component.
+5. upcoming / ongoing events -> -- / scrape-parse / js/react? ??
+
+6. Should transfer GridAddCard to be multi usefull component -->
+
+7. current user -> --
+
+8. upvote system -> --
+
+9. stats-commments page -> --
+
+10. tutorials page -> --
