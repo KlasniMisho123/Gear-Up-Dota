@@ -3,6 +3,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import pg from "pg";
 import dotenv from 'dotenv';
+import axios from "axios";
+import * as cheerio from 'cheerio';
 
 const app = express();
 const port = 5000;
@@ -28,11 +30,39 @@ app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParser.json());
 
+async function scrapeSastEvents() {
+    try {
+
+        const pastEventResults = await axios.get('https://www.gosugamers.net/dota2/tournaments?state=4')
+        const html = pastEventResults.data;
+
+        const $ = cheerio.load(html);
+
+        const targetPastEvents = $('.MuiStack-root mui-cncq3f');
+
+        targetPastEvents.each((index, element) => {
+            console.log($(element));
+        });
+
+    } catch(err) {
+        console.log(`Cought Duting Scrapeing Web ${err}`)
+    }
+}
+
+
 app.get("/", async (req, res) => {
     try {
-        const result = await db.query("SELECT COUNT(*) FROM public.gupusers");
-        const userCount = result.rows[0].count;
+        // count total users
+        const usersResult = await db.query("SELECT COUNT(*) FROM public.gupusers");
+        const userCount = usersResult.rows[0].count;
         res.send(`${userCount}`);
+
+        // parse recent events 
+        scrapeSastEvents();
+
+        
+
+
     } catch (err) {
         console.log("Connection error: ", err);
         res.status(500).send("Error loading user count");

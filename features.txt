@@ -1,8 +1,10 @@
+1. Useffect -> better understanding
+
 2. during wrong login getting bad request error instead of handle it.
 
 3. git push errors. (client side)\
 
-5. upcoming / ongoing events -> -- / scrape-parse / js/react? ??
+5. upcoming / ongoing events -> -- / scrape-parse / js/react? ??  //https://www.gosugamers.net/dota2/tournaments
 
 6. Should transfer GridAddCard to be multi usefull component -->
 
@@ -13,3 +15,12 @@
 9. stats-commments page -> --
 
 10. tutorials page -> --
+
+// break
+
+scrape-parse 
+
+next.js / tailwind
+
+typescript
+
