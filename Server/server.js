@@ -30,24 +30,27 @@ app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParser.json());
 
-async function scrapeSastEvents() {
-    try {
+// async function scrapeSastEvents() {
+//     try {
 
-        const pastEventResults = await axios.get('https://www.gosugamers.net/dota2/tournaments?state=4')
-        const html = pastEventResults.data;
+//         const pastEventResults = await axios.get('https://www.gosugamers.net/dota2/tournaments?state=4')
+        
+//         const html = pastEventResults.data;
 
-        const $ = cheerio.load(html);
+//         const $ = cheerio.load(html);
 
-        const targetPastEvents = $('.MuiStack-root mui-cncq3f');
+//         const targetPastEvents = $('.MuiStack-root mui-cncq3f');
+//         // const targetPastEvents = $('.MuiTypography-root MuiTypography-body1 mui-1p8cs6u');
 
-        targetPastEvents.each((index, element) => {
-            console.log($(element));
-        });
+//         console.log("SMASH")
+//         // targetPastEvents.each((index, element) => {
+//         //     console.log($(element));
+//         // });
 
-    } catch(err) {
-        console.log(`Cought Duting Scrapeing Web ${err}`)
-    }
-}
+//     } catch(err) {
+//         console.log(`Cought Duting Scrapeing Web ${err}`)
+//     }
+// }
 
 
 app.get("/", async (req, res) => {
@@ -58,7 +61,7 @@ app.get("/", async (req, res) => {
         res.send(`${userCount}`);
 
         // parse recent events 
-        scrapeSastEvents();
+        // scrapeSastEvents();
 
         
 
@@ -68,8 +71,6 @@ app.get("/", async (req, res) => {
         res.status(500).send("Error loading user count");
     }
 });
-
-
 
 app.post('/gear-up-dota/signup', async(req, res) => {
     const { nickname, email, password } = req.body;
@@ -132,6 +133,38 @@ app.post("/gear-up-dota/login", async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+app.post("/gear-up-dota/feedback", async (req, res) => {
+    const response  = req.body;
+
+    let feedbackUser = response.data.FeedbackUser;
+    let feedbackEmail = response.data.FeedbackEmail;
+    let feedbackType = response.data.FeedbackType;
+    let feedbackIssue = response.data.FeedbackIssue;
+    let feedbackText = response.data.FeedbackText;
+
+    try {
+        if(feedbackText.length > 0 ) {
+            await db.query("INSERT INTO gupfeedbacks (name, email, subject, issue_type, feedback) VALUES($1, $2, $3, $4, $5)",
+                [feedbackUser, feedbackEmail, feedbackType, feedbackIssue, feedbackText])
+            console.log("Feedback Added To Database")
+            
+        } else {
+            console.log("feedbackText is Required")
+        }
+
+    } catch(err) {
+        console.log('cant connect: ',err)
+    }
+    
+    
+    // if(feedbackUser.length = 0) {
+    //     feedbackUser = "Unknown User"
+    // }
+
+    
+})
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

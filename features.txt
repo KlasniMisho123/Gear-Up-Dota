@@ -1,4 +1,4 @@
-1. Useffect -> better understanding
+1. Feedback part ->  after adding to database succesfully. server reload adds same row.
 
 2. during wrong login getting bad request error instead of handle it.
 

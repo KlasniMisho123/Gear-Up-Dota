@@ -1,7 +1,17 @@
-CREATE TABLE gupUsers (
+CREATE TABLE gupUsers (  
     id SERIAL PRIMARY KEY,
     nickname VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE gupfeedbacks(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	email VARCHAR(256) NOT NULL,
+	subject Varchar(50),
+	issue_type Varchar(50),
+	feedback TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
